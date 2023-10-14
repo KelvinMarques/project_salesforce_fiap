@@ -25,22 +25,52 @@ def Cadastro(listaDeUsuarios):
     senha = input("Digite seu senha:")
     sexo = input("Digite seu sexo:")
 
+    if len(listaDeUsuarios) == 0:
+        
+            usuarios = {
+                "nome": nome,
+                "idade": idade,
+                "email": email,
+                "senha": senha,
+                "sexo": sexo,
+                }
+            dictUsuarios = {
+                    email: usuarios
+                    }
+            listaDeUsuarios.append(dictUsuarios)
+                    
+            print("Conta cadastrada!")
+            return listaDeUsuarios
+    else:
+        for usuario in listaDeUsuarios:
+            for emailList in usuario:
+                if email == emailList:
+                    print("Cadastro incorreto! Tente novamente ou crie um outro usuario")
+                    return listaDeUsuarios
+                else:
+                    usuarios = {
+                        "nome": nome,
+                        "idade": idade,
+                        "email": email,
+                        "senha": senha,
+                        "sexo": sexo,
+                        }
+                    dictUsuarios = {
+                    email: usuarios
+                    }
+                    listaDeUsuarios.append(dictUsuarios)
+                    
+                    print("Conta cadastrada!")
+                    return listaDeUsuarios
+        else:
+                pass
+                   
+            # isUsuarioOnline = False
+            
+    
     #Criar dicionario e incluir os dados na lista utilizando o email como . 
     
-    usuarios = {
-            "nome": nome,
-            "idade": idade,
-            "email": email,
-            "senha": senha,
-            "sexo": sexo,
-    }
-    dictUsuarios = {
-    email: usuarios
-}
-    listaDeUsuarios.append(dictUsuarios)
-    
 
-    return listaDeUsuarios
 
 def Login(listaDeUsuarios, isUsuarioOnline):
     emailLogin = input("Digite seu email:")
@@ -48,12 +78,17 @@ def Login(listaDeUsuarios, isUsuarioOnline):
 
     for usuario in listaDeUsuarios:
         for email in usuario:
-            if emailLogin in listaDeUsuarios:
-                if listaDeUsuarios[emailLogin]['senha'] == senha: 
+            if emailLogin == email:
+                if usuario[email]['senha'] == senha: 
                     isUsuarioOnline = True
+                    print("Login feito com sucesso! Bem vindo " + usuario[email]['nome'] )
+                else:
+                    isUsuarioOnline = False
+                    print("Senha incorreta!")
+
             else:
                 isUsuarioOnline = False
-
+                print("Login incorreto! Tente novamente ou crie um usuario")
 
     return isUsuarioOnline
 
